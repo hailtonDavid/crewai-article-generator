@@ -1,0 +1,31 @@
+# Sistema Multiagente para Geração de Artigos
+# Dependências do projeto
+
+# Framework CrewAI
+crewai>=0.86.0
+crewai-tools>=0.17.0
+
+# API e Validação
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+pydantic>=2.10.0
+
+# HTTP Client
+requests>=2.32.0
+
+# Variáveis de Ambiente
+python-dotenv>=1.0.0
+
+# LLM Providers (opcional, instalar conforme necessidade)
+google-generativeai>=0.8.0  # Para Gemini
+# groq>=0.11.0  # Para Groq
+# openai>=1.54.0  # Para OpenRouter (compatível com OpenAI)
+
+# Utilitários
+python-multipart>=0.0.12  # Para upload de arquivos (futuro)
+
+# Testes (opcional)
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
+httpx>=0.28.0  # Para testar FastAPI
+
