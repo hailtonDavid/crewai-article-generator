@@ -10,7 +10,8 @@ from datetime import datetime
 from typing import Optional
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import ValidationError
 
 from src.models.article_models import (
@@ -42,6 +43,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Configurar arquivos estáticos
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # Variável global para armazenar o gerador
@@ -83,22 +87,12 @@ def get_generator() -> ArticleGenerator:
 @app.get("/", tags=["Root"])
 async def root():
     """
-    Endpoint raiz da API.
+    Endpoint raiz da API - serve a interface web.
     
     Returns:
-        dict: Informações básicas da API
+        FileResponse: Página HTML principal da interface
     """
-    return {
-        "name": "Sistema Multiagente de Geração de Artigos",
-        "version": "1.0.0",
-        "description": "API para geração automatizada de artigos usando CrewAI",
-        "endpoints": {
-            "health": "/api/health",
-            "generate": "/api/generate-article",
-            "docs": "/docs",
-            "redoc": "/redoc"
-        }
-    }
+    return FileResponse("static/index.html")
 
 
 @app.get("/api/health", response_model=HealthResponse, tags=["Health"])
